@@ -1,41 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// Register the ScrollTrigger plugin with GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 const Header = () => {
-  useEffect(() => {
-    // GSAP and ScrollTrigger to handle smooth header transition
-    gsap.to('#header', {
-      backgroundColor: '#000', // Change background color to black
-      height: '110px', // Adjust height on scroll
-      duration: 0.5, // Smooth transition
-      ease: 'power1.out', // Smoother easing
+  const headerRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const headerElement = headerRef.current;
+
+    // GSAP animation
+    gsap.to(headerElement, {
+      backgroundColor: 'black',
+      height: '64px', // Equivalent to h-16 in Tailwind
+      ease: 'power1.out',
       scrollTrigger: {
-        trigger: '#header',
-        start: 'top top', // Start effect when header reaches the top
-        end: '+=1', // Quick transition
-        scrub: true, // Smooth transition linked with scroll
+        trigger: headerElement,
+        start: 'top top',
+        end: '+=100', // Adjust this value as needed
+        toggleActions: 'play none none reverse',
+        scrub: true,
       },
     });
+
+    // Ensure the width stays within the viewport
+    headerElement.style.overflowX = 'hidden';
+
   }, []);
 
   return (
     <header
-      id="header"
-      className="flex justify-between items-center p-5 w-full fixed top-0 left-0 z-50 transition-all duration-300 ease-in-out"
-      style={{
-        backgroundColor: 'transparent',
-        height: '145px', // Initial height
-        boxSizing: 'border-box',
-        overflow: 'hidden', // Ensure no content overflows
-      }}
+      ref={headerRef}
+      className="fixed top-0 left-0 w-full z-10 transition-all duration-300 ease-in-out bg-transparent h-20"
     >
-      <div className="flex justify-between items-center w-full px-4 md:px-20">
-        <div className="text-2xl font-bold">
+      <div className="flex justify-between items-center h-full p-5 w-full">
+        <div className="text-2xl font-bold pl-4 md:pl-20 ml-4 md:ml-10">
           <span className="text-blue-600 font-semibold text-[27px] cursor-pointer">Joule</span>
-          <span className="text-green-600 font-semibold text-[27px] cursor-pointer">Point</span>
+          <span className="text-green-600 font-semibold text-[27px] cursor-pointer">point</span>
         </div>
         <nav>
           <ul className="flex space-x-10">
