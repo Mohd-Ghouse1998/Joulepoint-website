@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    height: 100%;
+  }
+  
+  #root, .App {
+    height: 100%;
+  }
+  
+
+  .text-blue-600:hover,
+  .text-green-600:hover {
+      color: #FFFFFF; /* Bright white color for the text */
+      text-shadow: 
+          0 0 5px #00FFFF, /* Cyan glow */
+          0 0 10px #00FFFF, /* Cyan glow */
+          0 0 20px #00FFFF, /* Cyan glow */
+          0 0 40px #00FFFF, /* Cyan glow */
+          0 0 80px #00FFFF; /* Cyan glow */
+      transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+  
+
+
+  nav ul li a {
+    position: relative; /* Allows positioning of the pseudo-element */
+    text-decoration: none; /* Remove default underline */
+    color: #FFFFFF; /* Set text color */
+}
+
+nav ul li a::after {
+    content: ''; /* No text content, just a decorative element */
+    position: absolute;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color: #00FFFF; /* Cyan color for the underline */
+    left: 0;
+    bottom: -2px; /* Position the underline just below the text */
+    transition: width 0.3s ease-in-out; /* Smooth transition for the width */
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* Expand the underline to full width on hover */
+}
+
+
+
+@keyframes slideTop {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-slideTopDelayed {
+    animation: slideTop 1s ease-out 2s forwards;
+  }
